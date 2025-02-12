@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StepProgressBar from 'react-step-progress';
-import 'react-step-progress/dist/index.css';
+import StepProgressBar from '../../dist/react-step-progress.js';
+//import 'react-step-progress/dist/index.css';
 
 import './index.css';
 import './App.css';
@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <div class="app">
+    <div className="app">
       <StepProgressBar
         startingStep={0}
         wrapperClass="progress-wrapper-custom"

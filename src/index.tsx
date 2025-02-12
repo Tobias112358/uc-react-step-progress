@@ -1,5 +1,5 @@
-import * as React from 'react';
-import styles from './styles.module.css';
+import React, { useReducer, useEffect, useState } from 'react';
+import './styles.css';
 
 import { StepStates, ProgressStep, StepProgressProps, ReducerAction } from './models';
 
@@ -18,7 +18,7 @@ function stepsReducer(steps: ProgressStep[], action: ReducerAction): ProgressSte
   });
 }
 
-function StepProgressBar(props: StepProgressProps): JSX.Element {
+function StepProgressBar(props: StepProgressProps): React.JSX.Element {
   const {
     steps,
     startingStep,
@@ -36,10 +36,10 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
     previousBtnName,
     nextBtnName
   } = props;
-  const [state, dispatch] = React.useReducer(stepsReducer, steps);
-  const [currentIndex, setCurrentIndex] = React.useState(startingStep);
+  const [currentIndex, setCurrentIndex] = useState(startingStep);
+  const [state, dispatch] = useReducer(stepsReducer, steps);
 
-  React.useEffect(function () {
+  useEffect(function () {
     dispatch({
       type: 'init',
       payload: { index: currentIndex, state: StepStates.CURRENT }
@@ -91,20 +91,20 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
   }
 
   return (
-    <div className={`${styles['progress-bar-wrapper']} ${wrapperClass || ''}`}>
-      <ul className={`${styles['step-progress-bar']} ${progressClass || ''}`}>
+    <div className={`${'progress-bar-wrapper'} ${wrapperClass || ''}`}>
+      <ul className={`${'step-progress-bar'} ${progressClass || ''}`}>
         {state.map(function (step, i) {
           return (
             <li
               key={i}
-              className={`${styles['progress-step']}${
-                step.state === StepStates.COMPLETED ? ` ${styles.completed}` : ''
-              }${step.state === StepStates.CURRENT ? ` ${styles.current}` : ''}${
-                step.state === StepStates.ERROR ? ` ${styles['has-error']}` : ''
+              className={`${'progress-step'}${
+                step.state === StepStates.COMPLETED ? ` ${'completed'}` : ''
+              }${step.state === StepStates.CURRENT ? ` ${'current'}` : ''}${
+                step.state === StepStates.ERROR ? ` ${'has-error'}` : ''
               } ${stepClass || ''}`}
             >
               {step.state === StepStates.COMPLETED && (
-                <span className={styles['step-icon']}>
+                <span className={'step-icon'}>
                   <svg
                     width="1.5rem"
                     viewBox="0 0 13 9"
@@ -115,14 +115,14 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
                   </svg>
                 </span>
               )}
-              {step.state === StepStates.ERROR && <span className={styles['step-icon']}>!</span>}
+              {step.state === StepStates.ERROR && <span className={'step-icon'}>!</span>}
               {step.state !== StepStates.COMPLETED && step.state !== StepStates.ERROR && (
-                <span className={styles['step-index']}>{i + 1}</span>
+                <span className={'step-index'}>{i + 1}</span>
               )}
-              <div className={`${styles['step-label']} ${labelClass || ''}`}>
+              <div className={`${'step-label'} ${labelClass || ''}`}>
                 {step.label}
                 {step.subtitle && (
-                  <div className={`${styles['step-label-subtitle']} ${subtitleClass || ''}`}>
+                  <div className={`${'step-label-subtitle'} ${subtitleClass || ''}`}>
                     {step.subtitle}
                   </div>
                 )}
@@ -132,14 +132,14 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
         })}
       </ul>
 
-      <div className={`${styles['step-content']} ${contentClass || ''}`}>
+      <div className={`${'step-content'} ${contentClass || ''}`}>
         {props.steps[currentIndex].content}
       </div>
 
-      <div className={`${styles['step-buttons']} ${buttonWrapperClass || ''}`}>
+      <div className={`${'step-buttons'} ${buttonWrapperClass || ''}`}>
         <a
-          className={`${styles['step-action-btn']} ${styles['action-btn-secondary']} ${
-            currentIndex === 0 ? styles.disabled : ''
+          className={`${'step-action-btn'} ${'action-btn-secondary'} ${
+            currentIndex === 0 ? 'disabled' : ''
           } ${secondaryBtnClass || ''}`}
           onClick={prevHandler}
         >
@@ -147,7 +147,7 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
         </a>
         {currentIndex === state.length - 1 ? (
           <a
-            className={`${styles['step-action-btn']} ${styles['action-btn-primary']} ${
+            className={`${'step-action-btn'} ${'action-btn-primary'} ${
               primaryBtnClass || ''
             }`}
             onClick={submitHandler}
@@ -156,7 +156,7 @@ function StepProgressBar(props: StepProgressProps): JSX.Element {
           </a>
         ) : (
           <a
-            className={`${styles['step-action-btn']} ${styles['action-btn-primary']} ${
+            className={`${'step-action-btn'} ${'action-btn-primary'} ${
               primaryBtnClass || ''
             }`}
             onClick={nextHandler}
