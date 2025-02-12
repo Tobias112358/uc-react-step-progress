@@ -16,7 +16,7 @@
     "url": "https://github.com/saini-g/react-step-progress"
   },
   "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "module": "dist/react-step-progress.js",
   "source": "src/index.ts",
   "engines": {
     "node": ">=10"
