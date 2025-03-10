@@ -57,6 +57,7 @@ function App() {
             content: step4Content
           }
         ]}
+        hideStepButtons
       />
     </div>
   );

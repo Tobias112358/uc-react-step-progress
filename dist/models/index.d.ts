@@ -28,6 +28,7 @@ export interface StepProgressProps {
     onSubmit: Function;
     previousBtnName?: string;
     nextBtnName?: string;
+    hideStepButtons?: boolean;
 }
 export interface ReducerAction {
     type: string;

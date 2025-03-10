@@ -34,7 +34,8 @@ function StepProgressBar(props: StepProgressProps): React.JSX.Element {
     submitBtnName,
     onSubmit,
     previousBtnName,
-    nextBtnName
+    nextBtnName,
+    hideStepButtons
   } = props;
   const [currentIndex, setCurrentIndex] = useState(startingStep);
   const [state, dispatch] = useReducer(stepsReducer, steps);
@@ -136,35 +137,37 @@ function StepProgressBar(props: StepProgressProps): React.JSX.Element {
         {props.steps[currentIndex].content}
       </div>
 
-      <div className={`${'step-buttons'} ${buttonWrapperClass || ''}`}>
-        <a
-          className={`${'step-action-btn'} ${'action-btn-secondary'} ${
-            currentIndex === 0 ? 'disabled' : ''
-          } ${secondaryBtnClass || ''}`}
-          onClick={prevHandler}
-        >
-          {previousBtnName ? previousBtnName : 'Previous'}
-        </a>
-        {currentIndex === state.length - 1 ? (
+      {!hideStepButtons &&
+        <div className={`${'step-buttons'} ${buttonWrapperClass || ''}`}>
           <a
-            className={`${'step-action-btn'} ${'action-btn-primary'} ${
-              primaryBtnClass || ''
-            }`}
-            onClick={submitHandler}
+            className={`${'step-action-btn'} ${'action-btn-secondary'} ${
+              currentIndex === 0 ? 'disabled' : ''
+            } ${secondaryBtnClass || ''}`}
+            onClick={prevHandler}
           >
-            {submitBtnName || 'Submit'}
+            {previousBtnName ? previousBtnName : 'Previous'}
           </a>
-        ) : (
-          <a
-            className={`${'step-action-btn'} ${'action-btn-primary'} ${
-              primaryBtnClass || ''
-            }`}
-            onClick={nextHandler}
-          >
-            {nextBtnName ? nextBtnName : 'Next'}
-          </a>
-        )}
-      </div>
+          {currentIndex === state.length - 1 ? (
+            <a
+              className={`${'step-action-btn'} ${'action-btn-primary'} ${
+                primaryBtnClass || ''
+              }`}
+              onClick={submitHandler}
+            >
+              {submitBtnName || 'Submit'}
+            </a>
+          ) : (
+            <a
+              className={`${'step-action-btn'} ${'action-btn-primary'} ${
+                primaryBtnClass || ''
+              }`}
+              onClick={nextHandler}
+            >
+              {nextBtnName ? nextBtnName : 'Next'}
+            </a>
+          )}
+        </div>
+      }
     </div>
   );
 }

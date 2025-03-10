@@ -3,9 +3,6 @@ import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-
-const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
 const packageName = 'react-step-progress';
 
 const webpackConfig = {
@@ -28,8 +25,6 @@ const webpackConfig = {
         use: [
           {
             loader: 'ts-loader',
-            
-
           },
         ]
       },
@@ -37,7 +32,6 @@ const webpackConfig = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader']
       },
-
     ]
   },
   resolve: {
